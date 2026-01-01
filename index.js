@@ -6,14 +6,17 @@ const cors = require("cors");
 const app = express();
 const upload = multer({ storage: multer.memoryStorage() });
 
-app.use(cors());
+const corsOptions = {
+    origin: ['http://localhost:3000', "https://prime-print.uz/"],
+    methods: ['GET', 'POST'],
+};
+
+app.use(cors(
+
+));
 app.use(express.json());
 
-/**
- * POST /api/page-count
- * body: form-data
- * key: pdf (file)
- */
+
 app.post("/api/page-count", upload.single("pdf"), async (req, res) => {
     try {
         if (!req.file) {
@@ -44,7 +47,7 @@ app.post("/api/page-count", upload.single("pdf"), async (req, res) => {
     }
 });
 
-const PORT = 3000;
+const PORT = 5000;
 app.listen(PORT, () => {
     console.log(`🚀 PDF Page Counter API ishlayapti: http://localhost:${PORT}`);
 });
